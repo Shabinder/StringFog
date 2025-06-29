@@ -48,4 +48,10 @@ abstract class StringFogExtension {
      */
     var fogPackages : Array<String> = emptyArray()
 
+    /**
+     * The class name of the
+     * StringFog class, which is used to encrypt and decrypt the strings.
+     * Default is "StringFog".
+     */
+    var className: String = "StringFog"
 }

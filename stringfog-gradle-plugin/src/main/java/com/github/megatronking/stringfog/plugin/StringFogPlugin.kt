@@ -83,7 +83,7 @@ class StringFogPlugin : Plugin<Project> {
                     applicationId,
                     stringfog,
                     logs,
-                    "$applicationId.${SourceGeneratingTask.FOG_CLASS_NAME}"
+                    "$applicationId.${stringfog.className}"
                 )
             }
             variant.instrumentation.setAsmFramesComputationMode(
@@ -103,6 +103,7 @@ class StringFogPlugin : Plugin<Project> {
                     task.applicationId.set(applicationId)
                     task.implementation.set(stringfog.implementation)
                     task.mode.set(stringfog.mode)
+                    task.className.set(stringfog.className)
                 }
                 it.registerJavaGeneratingTask(provider, stringfogDir)
             }

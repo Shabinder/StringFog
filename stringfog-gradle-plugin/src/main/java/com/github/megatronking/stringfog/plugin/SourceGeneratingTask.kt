@@ -10,14 +10,13 @@ import javax.inject.Inject
 
 @CacheableTask
 abstract class SourceGeneratingTask @Inject constructor(): DefaultTask() {
-    companion object {
-        const val FOG_CLASS_NAME = "StringFog"
-    }
 
     @get:Input
     abstract val genDir: Property<File>
     @get:Input
     abstract val applicationId: Property<String>
+    @get:Input
+    abstract val className: Property<String>
     @get:Input
     abstract val implementation: Property<String>
     @get:Input
@@ -25,13 +24,12 @@ abstract class SourceGeneratingTask @Inject constructor(): DefaultTask() {
 
     @TaskAction
     fun injectSource() {
-
         if (!genDir.get().exists()) {
             genDir.get().mkdirs()
         }
 
-        val outputFile = File(genDir.get(), applicationId.get().replace('.', File.separatorChar) + File.separator + "StringFog.java")
-        StringFogClassGenerator.generate(outputFile, applicationId.get(), FOG_CLASS_NAME,
+        val outputFile = File(genDir.get(), applicationId.get().replace('.', File.separatorChar) + File.separator + "${className.get()}.java")
+        StringFogClassGenerator.generate(outputFile, applicationId.get(), className.get(),
             implementation.get(), mode.get())
     }
 
